@@ -1,0 +1,80 @@
+﻿@model ClimaTempoSimples.Models.Previsao
+
+<script src="~/Scripts/scripts.js"></script>
+
+@{
+    ViewBag.Title = "Clima Tempo Simples - Home";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Clima Tempo <img src="https://raw.githubusercontent.com/renanribs/ClimaTempo/master/ClimaTempo/Content/Logo%20Auvo.png" style="max-width: 70px; margin-right:40px" /></h1>
+    </div>
+
+    <div class="row ">
+        <div class=" col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cidades mais quentes hoje</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var previsao in Model.CidadesMaisQuentes)
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                @previsao.Cidade.Nome /@previsao.Cidade.Estado.UF
+                            </div>
+                            <div class="col-md-2">
+                                Min @((int?)previsao.TemperaturaMinima)°C
+                            </div>
+                            <div class="col-md-2">
+                                Máx @((int?)previsao.TemperaturaMaxima)°C
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cidades mais frias hoje</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var previsao in Model.CidadesMaisFrias)
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                @previsao.Cidade.Nome/@previsao.Cidade.Estado.UF
+                            </div>
+                            <div class="col-md-2">
+                                Min @((int?)previsao.TemperaturaMinima)°C
+                            </div>
+                            <div class="col-md-2">
+                                Máx @((int?)previsao.TemperaturaMaxima)°C
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <label class="text-right" for="cidades">Cidade:</label><br>
+            <select id="cidades" onchange="obterClimaSemana()">
+                <option value="0" selected>Selecione...</option>
+                @foreach (var cidade in Model.Cidades)
+                {
+                    <option value="@cidade.Id">@cidade.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div id="previsao">
+
+        </div>
+    </div>
+</div>
